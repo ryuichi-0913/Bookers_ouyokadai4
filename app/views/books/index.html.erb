@@ -64,7 +64,7 @@
           <th></th>
           <th>Title</th>
           <th>Opinion</th>
-          <th colspan="3"></th>
+          <th colspan="5"></th>
         </tr>
       </thead>
 
@@ -78,8 +78,26 @@
             <td><%= link_to book_path(book.id), class: 'hoge' do %>
 <%= book.title %><% end %></td>
             <td><%= book.body %></td>
-          </tr>
+          <!-- いいねここから -->
+          <% if book.favorited_by?(current_user) %>
+          <td>
+            <%= link_to book_favorites_path(book), method: :delete do %>
+              <%= book.favorites.count %> いいね
+            <% end %>
+          </td>
+          <% else %>
+          <td>
+            <%= link_to book_favorites_path(book), method: :post do %>
+              <%= book.favorites.count %> いいね
+            <% end %>
+          </td>
           <% end %>
+          <!-- ここまで -->
+       <!-- コメント数 -->
+        <td>コメント数:<%= book.book_comments.count %></td>
+        <!-- コメント数終わり -->
+         </tr>
+      　<% end %>
       </tbody>
     </table>
   </div>
