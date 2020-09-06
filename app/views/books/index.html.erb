@@ -1,5 +1,7 @@
 <body>
   <br><br><br>
+  <p id="notice">
+ <%=  notice %></p>
 
   <%= form_for(@book) do |f| %>
 <% if @book.errors.any? %>

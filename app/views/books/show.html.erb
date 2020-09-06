@@ -1,6 +1,5 @@
 <body>
 <br><br><br>
-
     <!-- サクセスメッセージ -->
 <div class="container">
   <p id="notice">
@@ -103,7 +102,17 @@
     </table>
               <!-- コメント本文 -->
            <!-- <form> -->
-        <%= form_for [@book, @book_comments] do |f| %>
+        <%= form_for [@book, @book_comment] do |f| %>
+
+          <% if @book_comment.errors.any? %>
+          <h3><%= @book_comment.errors.count %> errors prohibited this book from being saved</h3>
+              <ul>
+                <% @book_comment.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+
+          <% end %>
             <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
           <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
         <% end %>
