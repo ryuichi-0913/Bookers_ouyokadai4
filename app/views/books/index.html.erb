@@ -33,8 +33,27 @@
                   <th>introduction</th>
                   <th><%= @user.introduction %></th>
                 </tr>
+                  <tr>
+                  <th>follows</th>
+                  <th><%=link_to @user.follower.count, user_follow_path %></th>
+                </tr>
+                <tr>
+                  <th>followers</th>
+                  <th><%=link_to @user.followed.count, user_followed_path %></th>
+                </tr>
           </tbody>
         </table>
+            <!-- フォローボタン -->
+            <p>
+          <% if current_user.id != @user.id %>
+            <% if current_user.following?(@user) %>
+            <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :POST, class: "btn btn-primary "  %>
+            <% else %>
+            <%= link_to 'フォローする', follow_path(@user.id), method: :POST, class: "btn btn-primary "  %>
+            <% end %>
+          <% end %>
+            </p>
+            <!-- フォローボタン終わり -->
       <div class="row">
         　<% if @user.id == current_user.id %>
              <p><%= link_to "", edit_user_path(@user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user" %></p>
